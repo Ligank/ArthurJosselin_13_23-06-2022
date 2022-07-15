@@ -1,6 +1,7 @@
 import Header from '../components/header.js'
 import Footer from '../components/footer.js'
 import SignInForm from '../components/signInForm.js'
+import '../styles/sign-in.css';
 
 function SignIn() {
     return (

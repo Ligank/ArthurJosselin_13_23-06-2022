@@ -1,0 +1,60 @@
+.user {
+    background-color: #e0e6ed;
+    height: 78vh;
+    padding-bottom: 50px;
+
+}
+
+.title_user {
+    margin-top: 20px;
+    color: #283845;
+}
+
+.form_edit_name {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 10vh;
+}
+
+.names {
+    width: 20vw;
+    align-self: center;
+    display: flex;
+    justify-content: space-between;
+}
+
+.edit_name {
+    border: 1px #c3cfd9;
+    box-shadow: 0 0 3px #c3cfd9;
+    border-radius: 5px;
+    width: 130px;
+    font-size: 20px;
+    padding: 5px 0 5px 0;
+}
+
+input::placeholder {
+    color: #c3cfd9;
+    padding-left: 5px;
+}
+
+.button_names {
+    display: flex;
+    width: 15.5vw;
+    align-self: center;
+    justify-content: space-around;
+}
+
+.button_submit_names {
+    border-color: #6458f5;
+    border-radius: 5px;
+    color: #6458f5;
+    font-weight: bold;
+    width: 100px;
+    padding: 5px 0 5px 0;
+}
+
+.edit-button {
+    margin-top: 20px;
+    border-radius: 5px;
+}

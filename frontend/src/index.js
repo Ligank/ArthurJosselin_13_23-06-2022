@@ -5,20 +5,23 @@ import './styles/index.css';
 import Accueil from './pages/Accueil';
 import SignIn from './pages/sign-in';
 import User from './pages/user';
+import { Provider } from "react-redux";
+import { store } from "./store";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <Router>
-      <Routes>
-        <Route exact path="/" element={<Accueil />}></Route>
+  <Provider store={store}>
+    <React.StrictMode>
+        <Router>
+          <Routes>
+            <Route exact path="/" element={<Accueil />}></Route>
 
-        <Route exact path="/sign-in" element={<SignIn />}></Route>
+            <Route exact path="/sign-in" element={<SignIn />}></Route>
 
-        <Route exact path="/user" element={<User />}></Route>
-
-      </Routes>
-    </Router>
-    
-  </React.StrictMode>
+            <Route exact path="/profile/:profilId" element={<User />}></Route>
+          </Routes>
+        </Router>
+    </React.StrictMode>
+  </Provider>
+  
 );

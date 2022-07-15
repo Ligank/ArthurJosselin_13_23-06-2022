@@ -3,6 +3,7 @@ import Footer from '../components/footer.js'
 import Features from '../components/features.js'
 import {features} from '../data/features.js'
 import '../styles/main.css';
+import '../styles/accueil.css';
 
 function Accueil() {
   return (
