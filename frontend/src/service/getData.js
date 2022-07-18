@@ -3,7 +3,7 @@ import { users, usersInfos } from "../data/users";
 
 //Find URl of client with his ID
 let id = parseInt(window.location.pathname.replace('/profile/', ''));
-//const BASE_URL = "http://localhost:3000/user/" + id;
+const BASE_URL = "http://localhost:3001/api/v1/user/signup";
 
 
 
@@ -14,17 +14,17 @@ let mocked = true //switch beetween data mocked or API
       const data = !id ? users : users.filter(profil => profil.id === id)
       return data[0]
     }
-    /*let response
+    let response
     let data
-    const url = `${BASE_URL}/${service}`;
+    const url = `${BASE_URL}`;
     try {
       response = await fetch(url)
       data = await response.json()
       console.log('data API')
-      return data.data.userInfos
+      return data
     } catch (err) {
       console.log('Error', err)
-    }*/
+    }
   }
 
   export async function fetchUsersInfo() {
@@ -34,7 +34,7 @@ let mocked = true //switch beetween data mocked or API
     }
     /*let response
     let data
-    const url = `${BASE_URL}/${service}`;
+    const url = `${BASE_URL}`;
     try {
       response = await fetch(url)
       data = await response.json()
