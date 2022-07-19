@@ -7,7 +7,7 @@ const BASE_URL = "http://localhost:3001/api/v1/user/signup";
 
 
 
-let mocked = true //switch beetween data mocked or API
+let mocked = true //switch between data mocked or API
 
   export async function fetchUsers() {
     if (mocked === true) {
@@ -16,9 +16,8 @@ let mocked = true //switch beetween data mocked or API
     }
     let response
     let data
-    const url = `${BASE_URL}`;
     try {
-      response = await fetch(url)
+      response = await fetch(BASE_URL)
       data = await response.json()
       console.log('data API')
       return data
@@ -34,9 +33,8 @@ let mocked = true //switch beetween data mocked or API
     }
     /*let response
     let data
-    const url = `${BASE_URL}`;
     try {
-      response = await fetch(url)
+      response = await fetch(BASE_URL)
       data = await response.json()
       console.log('data API')
       return data.data.userInfos

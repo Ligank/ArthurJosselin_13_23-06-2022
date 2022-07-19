@@ -19,7 +19,6 @@ function SignInForm() {
                 <Link to='/profile/1'  className='main-nav-logo'>
                     <button className="sign-in-button">Sign In</button>
                 </Link>
-                
             </form>
                   
 }
