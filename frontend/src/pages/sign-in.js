@@ -4,6 +4,22 @@ import { useNavigate } from 'react-router-dom'
 import '../styles/sign-in.css';
 
 function SignIn() {
+  const BASE_URL = "http://localhost:3001/api/v1/user";
+
+ function login(email, password) {
+    const loginOptions = {
+      method: 'POST',
+      headers: { 'Content-type': 'application/json; charset=UTF-8' },
+      body: JSON.stringify({ email: email, password: password })
+    }
+    fetch(BASE_URL + '/login', loginOptions).then(function (response) {
+      if (response.ok) {
+        console.log("test")
+      } else {
+        console.log("no")
+      }
+    })
+  }
 
     const navigate = useNavigate()
 
@@ -13,7 +29,7 @@ function SignIn() {
       } else if (document.getElementById('password').value.trim() === "") {
         event.preventDefault();
       } else {
-        
+        login()
         navigate('/profile/1')
       }
       

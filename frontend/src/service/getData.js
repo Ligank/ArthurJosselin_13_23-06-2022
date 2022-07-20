@@ -3,7 +3,7 @@ import { users, usersInfos } from "../data/users";
 
 //Find URl of client with his ID
 let id = parseInt(window.location.pathname.replace('/profile/', ''));
-const BASE_URL = "http://localhost:3001/api/v1/user/signup";
+const BASE_URL = "http://localhost:3001/api/v1/user";
 
 
 
@@ -17,7 +17,7 @@ let mocked = true //switch between data mocked or API
     let response
     let data
     try {
-      response = await fetch(BASE_URL)
+      response = await fetch(`${BASE_URL}/login`)
       data = await response.json()
       console.log('data API')
       return data
@@ -41,4 +41,17 @@ let mocked = true //switch between data mocked or API
     } catch (err) {
       console.log('Error', err)
     }*/
+  }
+
+  export function login(email, password) {
+    const loginOptions = {
+      method: 'POST',
+      headers: { 'content-type': 'application/json'},
+      body: JSON.stringify({ email: email, password: password })
+    }
+    fetch(BASE_URL + '/login', loginOptions).then(function (response) {
+      if (response.ok) {
+        console.log("test")
+      }
+    })
   }
