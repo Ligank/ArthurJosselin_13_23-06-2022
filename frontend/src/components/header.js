@@ -36,7 +36,7 @@ function Header({sign}) {
                 </Link>
                 {!isSign && <div>
                 <Link to='/login' className='main-nav-item'>
-                    <i className="fa fa-user-circle"></i>
+                    <FontAwesomeIcon icon={faUserCircle} className='icon'/>
                     Sign In
                 </Link>
                 </div>}

@@ -6,7 +6,7 @@ import { Navigate } from 'react-router-dom';
 import { loginUserAction } from '../actions/authenticationActions';
 import '../styles/sign-in.css';
 
-class SignIn extends Component {
+class LoginPage extends Component {
   onHandleLogin = (event) => {
     event.preventDefault();
 
@@ -16,16 +16,17 @@ class SignIn extends Component {
     const data = {
       email, password
     };
-
     this.props.dispatch(loginUserAction(data));
+    console.log(this.props.response)
   }
 
   render() {
     let isSuccess, message;
 
     if (this.props.response.login.hasOwnProperty('response')) {
-      isSuccess = this.props.response.login.response.success;
-      message = this.props.response.login.response.message;
+      isSuccess = this.props.response;
+      console.log(isSuccess)
+      message = this.props.response;
       if (isSuccess) {
         localStorage.removeItem('token');
         localStorage.setItem('token', this.props.response.login.response.token);
@@ -49,7 +50,7 @@ class SignIn extends Component {
               </div>
               <div className="input-wrapper">
                   <label htmlFor="password">Password</label>
-                  <input type="password" id="password" name='password' />
+                  <input type="password" id="password" name='password'/>
               </div>
               <div className="input-remember">
                   <input type="checkbox" id="remember-me" /><label htmlFor="remember-me"
@@ -68,4 +69,4 @@ class SignIn extends Component {
 
 const mapStateToProps = (response) => ({response});
 
-export default connect(mapStateToProps)(SignIn);
+export default connect(mapStateToProps)(LoginPage);

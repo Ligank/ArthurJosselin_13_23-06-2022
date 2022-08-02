@@ -14,7 +14,6 @@ export const loginUserService = (request) => {
       return response.json();
     })
     .then(json => {
-      console.log(json.status)
       return json;
     });
 };
