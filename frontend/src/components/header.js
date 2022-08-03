@@ -29,6 +29,10 @@ function Header({sign}) {
         setName(nameUser)
       }
 
+    const onLogOut = () => {
+        localStorage.removeItem("token")
+      }
+
     return <nav className="main-nav">
                 <Link to='/' className='main-nav-logo'>
                 <img className="main-nav-logo-image" src={logo} alt="Argent Bank Logo"/>
@@ -45,7 +49,7 @@ function Header({sign}) {
                         <FontAwesomeIcon icon={faUserCircle} className='icon'/>
                         {name.firstName}
                     </Link>
-                    <Link to='/' className='main-nav-item'>
+                    <Link to='/' className='main-nav-item' onClick={onLogOut}>
                         <FontAwesomeIcon icon={faSignOut} className='icon'/>
                         Sign Out
                     </Link>

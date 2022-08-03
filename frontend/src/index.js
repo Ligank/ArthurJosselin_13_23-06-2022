@@ -9,11 +9,9 @@ import { Provider } from "react-redux";
 import configureStore from "./store/configureStore";
 import history from './store/history'
 
-const store = configureStore();
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <Provider store={store}>
+  <Provider store={configureStore}>
     <React.StrictMode>
         <Router history={history}>
           <Routes>
@@ -21,7 +19,7 @@ root.render(
 
             <Route exact path="/login" element={<SignIn />}></Route>
 
-            <Route exact path="/profile/:profilId" element={<User />}></Route>
+            <Route exact path="/profile" element={<User />}></Route>
           </Routes>
         </Router>
     </React.StrictMode>
