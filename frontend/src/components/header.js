@@ -1,19 +1,20 @@
+import PropTypes from 'prop-types'
 import logo from '../assets/argentBankLogo.png'
 import { Link } from 'react-router-dom'
-import {fetchUsers} from "../service/getData";
 import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserCircle, faSignOut } from '@fortawesome/free-solid-svg-icons'
 import '../styles/header.css';
+import { useDispatch } from 'react-redux';
+import { clearState } from '../features/UserSlice';
 
 function Header({sign}) {
 
+    const dispatch = useDispatch();
     const [isSign, setIsSign] = useState(false);
-    const [name, setName] = useState([])
 
     useEffect(() => {
         signCheck()
-        fetchInformationUser()
       },)
 
     function signCheck() {
@@ -24,13 +25,11 @@ function Header({sign}) {
         }
     }
 
-    async function fetchInformationUser () {
-        const nameUser = await fetchUsers()
-        setName(nameUser)
-      }
+    let name = localStorage.firstName
 
     const onLogOut = () => {
         localStorage.removeItem("token")
+        dispatch(clearState());
       }
 
     return <nav className="main-nav">
@@ -39,15 +38,15 @@ function Header({sign}) {
                 <h1 className="sr-only">Argent Bank</h1>
                 </Link>
                 {!isSign && <div>
-                <Link to='/login' className='main-nav-item'>
-                    <FontAwesomeIcon icon={faUserCircle} className='icon'/>
-                    Sign In
-                </Link>
+                    <Link to='/login' className='main-nav-item'>
+                        <FontAwesomeIcon icon={faUserCircle} className='icon'/>
+                        Sign In
+                    </Link>
                 </div>}
                 {isSign && <div className='singnOut_Header'>
                     <Link to='/user' className='main-nav-item'>
                         <FontAwesomeIcon icon={faUserCircle} className='icon'/>
-                        {name.firstName}
+                        {name}
                     </Link>
                     <Link to='/' className='main-nav-item' onClick={onLogOut}>
                         <FontAwesomeIcon icon={faSignOut} className='icon'/>
@@ -55,7 +54,10 @@ function Header({sign}) {
                     </Link>
                 </div>}
             </nav>
-                  
 }
+
+Header.propTypes = {
+    sign: PropTypes.string.isRequired,
+  }
 
 export default Header

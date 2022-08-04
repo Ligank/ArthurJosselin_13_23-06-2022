@@ -4,22 +4,12 @@ import Account from '../components/account.js'
 import React, { useState, useEffect } from "react";
 import '../styles/user.css';
 import { useSelector, useDispatch } from "react-redux"
-import { userSelector, fetchUserBytoken, clearState } from "../features/UserSlice"
+import { userSelector, fetchUserBytoken, clearState, updateName } from "../features/UserSlice"
 import { useNavigate } from 'react-router-dom';
 
 
 const User = () => {
   const [editNameState, setEditName] = useState(false);
-
-
-  function openEdit() {
-    if (editNameState === false) {
-      setEditName(true);
-    } else {
-      setEditName(false);
-    }
-  }
-
   const navigate = useNavigate();
 
   const dispatch = useDispatch()
@@ -36,6 +26,20 @@ const User = () => {
       navigate("/login")
     }
   }, [dispatch, navigate, isError])
+
+  function openEdit() {
+    if (editNameState === false) {
+      setEditName(true);
+    } else {
+      setEditName(false);
+    }
+  }
+
+  function changeName() {
+    let firstName = document.querySelector(".firstName").value;
+    let lastName = document.querySelector(".lastName").value;
+    dispatch(updateName({ token: localStorage.getItem("token"), firstName: firstName, lastName }))
+  }
 
   return (
     <div className="user">
@@ -55,7 +59,7 @@ const User = () => {
           <input type='text' className='edit_name lastName' defaultValue={data.lastName} required></input>
         </div>
         <div className='button_names'>
-          <input type="button" value="Save" className='button_submit_names' /*</div>onClick={changeName}*/></input>
+          <input type="button" value="Save" className='button_submit_names' onClick={changeName}></input>
           <input type="button" value="Cancel" className='button_submit_names' onClick={openEdit}></input>
         </div>
       </form>

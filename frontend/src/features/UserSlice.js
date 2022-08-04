@@ -12,14 +12,11 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
               Accept: "application/json",
               "Content-Type": "application/json",
             },
-            body: JSON.stringify({
-                email,
-              password,
-            }),
+            body: JSON.stringify({ email, password, }),
           }
         )
         let data = await response.json()
-        console.log("response", data)
+        //console.log("response", data)
         if (response.status === 200) {
           localStorage.setItem("token", data.body.token)
           return data
@@ -50,7 +47,40 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
           }
         );
         let data = await response.json();
-        console.log('data', data, response.status);
+        //console.log('data', data, response.status);
+  
+        if (response.status === 200) {
+          localStorage.setItem("firstName", data.body.firstName)
+          localStorage.setItem("lastName", data.body.lastName)
+          return { ...data };
+        } else {
+          return thunkAPI.rejectWithValue(data);
+        }
+      } catch (e) {
+        console.log('Error', e.response.data);
+        return thunkAPI.rejectWithValue(e.response.data);
+      }
+    }
+  );
+
+  export const updateName = createAsyncThunk(
+    'users/changeName',
+    async ({ token, firstName, lastName  }, thunkAPI) => {
+      try {
+        const response = await fetch(
+          'http://localhost:3001/api/v1/user/profile',
+          {
+            method: 'PUT',
+            headers: {
+              Accept: 'application/json',
+              Authorization: 'Bearer' + token,
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ firstName: firstName, lastName: lastName })
+          }
+        );
+        let data = await response.json();
+        //console.log('data', data, response.status);
   
         if (response.status === 200) {
           localStorage.setItem("firstName", data.body.firstName)
@@ -69,26 +99,24 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
   export const userSlice = createSlice({
     name: "user",
     initialState: {
+      token: "",
       firstName: "",
       lastName: "",
       isFetching: false,
       isSuccess: false,
       isError: false,
-      errorMessage: "",
     },
     reducers: {
         clearState: (state) => {
           state.isError = false;
           state.isSuccess = false;
           state.isFetching = false;
-    
           return state;
         },
       },
       extraReducers: {
         [loginUser.fulfilled]: (state, { payload }) => {
-          state.email = payload.email;
-          state.username = payload.name;
+          state.token = payload.body.token;
           state.isFetching = false;
           state.isSuccess = true;
           return state;
@@ -97,7 +125,6 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
           console.log('payload', payload);
           state.isFetching = false;
           state.isError = true;
-          state.errorMessage = payload.message;
         },
         [loginUser.pending]: (state) => {
           state.isFetching = true;
@@ -106,11 +133,10 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
           state.isFetching = true;
         },
         [fetchUserBytoken.fulfilled]: (state, { payload }) => {
+          state.firstName = payload.body.firstName;
+          state.lastName = payload.body.lastName;
           state.isFetching = false;
           state.isSuccess = true;
-    
-          state.email = payload.email;
-          state.username = payload.name;
         },
         [fetchUserBytoken.rejected]: (state) => {
           console.log('fetchUserBytoken');

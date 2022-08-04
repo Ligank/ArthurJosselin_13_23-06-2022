@@ -12,7 +12,7 @@ const LoginPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { handleSubmit } = useForm();
-  const { isSuccess, isError, errorMessage } = useSelector(
+  const { isSuccess, isError, } = useSelector(
     userSelector
   );
   const onSubmit = () => {
@@ -39,7 +39,7 @@ const LoginPage = () => {
       dispatch(clearState());
       navigate('/profile');
     }
-  }, [navigate, dispatch, errorMessage, isError, isSuccess]);
+  }, [navigate, dispatch, isError, isSuccess]);
 
   return (
     <div className="sign">
