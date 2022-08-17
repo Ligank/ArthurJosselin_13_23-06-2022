@@ -18,7 +18,6 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
         let data = await response.json()
         //console.log("response", data)
         if (response.status === 200) {
-          localStorage.setItem("token", data.body.token)
           return data
         } else {
           alert(data.message)
@@ -50,8 +49,6 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
         //console.log('data', data, response.status);
   
         if (response.status === 200) {
-          localStorage.setItem("firstName", data.body.firstName)
-          localStorage.setItem("lastName", data.body.lastName)
           return { ...data };
         } else {
           return thunkAPI.rejectWithValue(data);
@@ -65,7 +62,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 
   export const updateName = createAsyncThunk(
     'users/changeName',
-    async ({ token, firstName, lastName  }, thunkAPI) => {
+    async ({ token, firstName, lastName }, thunkAPI) => {
       try {
         const response = await fetch(
           'http://localhost:3001/api/v1/user/profile',
@@ -83,8 +80,6 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
         //console.log('data', data, response.status);
   
         if (response.status === 200) {
-          localStorage.setItem("firstName", data.body.firstName)
-          localStorage.setItem("lastName", data.body.lastName)
           return { ...data };
         } else {
           return thunkAPI.rejectWithValue(data);
@@ -140,6 +135,20 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
         },
         [fetchUserBytoken.rejected]: (state) => {
           console.log('fetchUserBytoken');
+          state.isFetching = false;
+          state.isError = true;
+        },
+        [updateName.pending]: (state) => {
+          state.isFetching = true;
+        },
+        [updateName.fulfilled]: (state, { payload }) => {
+          state.firstName = payload.body.firstName;
+          state.lastName = payload.body.lastName;
+          state.isFetching = false;
+          state.isSuccess = true;
+        },
+        [updateName.rejected]: (state) => {
+          console.log('updateName');
           state.isFetching = false;
           state.isError = true;
         },

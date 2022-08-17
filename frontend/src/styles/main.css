@@ -151,7 +151,7 @@
     background-color: #fff;
     width: 80%;
     margin: 0 auto;
-    flex-direction: column;
+    
     padding: 1.5rem;
     box-sizing: border-box;
     text-align: left;
@@ -196,6 +196,7 @@
   .transaction-button {
     display: block;
     width: 100%;
+    max-width: 200px;
     padding: 8px;
     font-size: 1.1rem;
     font-weight: bold;
@@ -218,6 +219,15 @@
   
     .transaction-button {
       width: 200px;
+    }
+
+  }
+
+  @media (max-width: 720px) {
+    .account-amount {
+      margin: 0;
+      font-size: 1.5rem;
+      font-weight: bold;
     }
   }
 

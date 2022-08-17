@@ -11,14 +11,15 @@ import { useNavigate } from 'react-router-dom';
 const User = () => {
   const [editNameState, setEditName] = useState(false);
   const navigate = useNavigate();
+  const { firstName, lastName, token } = useSelector(userSelector);
+
 
   const dispatch = useDispatch()
   const { isError } = useSelector(userSelector)
   useEffect(() => {
-    dispatch(fetchUserBytoken({ token: localStorage.getItem("token") }))
+    dispatch(fetchUserBytoken({ token: token }))
   }, [dispatch])
 
- let data = {firstName: localStorage.getItem("firstName"), lastName: localStorage.getItem("lastName") }
 
   useEffect(() => {
     if (isError) {
@@ -48,15 +49,15 @@ const User = () => {
     </Header>
   <main className="main user user_account">
   {!editNameState && <div className="header">
-      <h1 className='title_user'>Welcome back<br />{data.firstName} {data.lastName} !</h1>
+      <h1 className='title_user'>Welcome back<br />{firstName} {lastName} !</h1>
       <button className="edit-button" onClick={openEdit}>Edit Name</button>
     </div>}
     {editNameState && <div className="header">
     <h1 className='title_user'>Welcome back</h1>
     <form action='' method='get' className='form_edit_name'>
         <div className='names'>
-          <input type='text' className='edit_name firstName' defaultValue={data.firstName} required></input>
-          <input type='text' className='edit_name lastName' defaultValue={data.lastName} required></input>
+          <input type='text' className='edit_name firstName' defaultValue={firstName} required></input>
+          <input type='text' className='edit_name lastName' defaultValue={lastName} required></input>
         </div>
         <div className='button_names'>
           <input type="button" value="Save" className='button_submit_names' onClick={changeName}></input>
