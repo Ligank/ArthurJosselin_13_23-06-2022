@@ -205,6 +205,7 @@
     background-color: #6458f5;
     border-radius: 4px;
     color: #fff;
+    cursor: pointer;
   }
   
   @media (min-width: 720px) {

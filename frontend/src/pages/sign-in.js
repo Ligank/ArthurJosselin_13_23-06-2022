@@ -1,11 +1,11 @@
 import Header from '../components/header.js'
 import Footer from '../components/footer.js'
 import React, { useEffect } from 'react';
-import '../styles/sign-in.css';
 import { useForm } from 'react-hook-form';
 import { useSelector, useDispatch } from 'react-redux';
 import { loginUser, userSelector, clearState } from '../features/UserSlice';
 import { useNavigate } from 'react-router-dom';
+import '../styles/sign-in.css';
 
 
 const LoginPage = () => {
