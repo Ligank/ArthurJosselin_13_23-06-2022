@@ -16,8 +16,10 @@
   }
   
   .main-nav-item {
+    display: flex;
     text-decoration: none;
     margin-right: 0.5rem;
+    align-items: center;
   }
   
   .main-nav-item:hover {
@@ -38,8 +40,16 @@
     width: 15vw;
     display: flex;
     justify-content: space-between;
+    align-items: center;
   }
 
   .icon {
     margin-right: 10px;
+  }
+
+  @media (max-width: 400px) {
+    .singnOut_Header {
+      width: 30vw;
+      font-size: 0.8rem;
+    }
   }
